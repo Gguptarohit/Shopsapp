@@ -1,1 +1,536 @@
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Threads | Premium Shoes & Apparel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #f8bb22;
+            --text: #f1f1f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 90vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: all 1.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide-1 {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d4ab302d-6980-4ee2-b9c0-7f5db336c1b3.png') no-repeat center center/cover;
+        }
+
+        .hero-slide-2 {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/95e08f24-3468-4705-b0fd-fb818b0c32c1.png') no-repeat center center/cover;
+        }
+
+        .hero-slide-3 {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ef1fe1d1-0cac-4064-a099-b2d357fc3f3b.png') no-repeat center center/cover;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            transform: translateY(50px);
+            transition: transform 0.8s ease;
+            opacity: 0;
+        }
+
+        .hero-slide.active .hero-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .category-card:hover img {
+            transform: scale(1.05);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .product-image {
+            transition: all 0.3s ease;
+        }
+
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(20px); }
+            20% { opacity: 1; transform: translateY(0); }
+            80% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(20px); }
+        }
+
+        .animate-fadeInOut {
+            animation: fadeInOut 2s ease-in-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md py-4 sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-800">URBAN THREADS</a>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#" class="text-gray-800 hover:text-gray-600">Home</a>
+                <a href="#" class="text-gray-800 hover:text-gray-600">Men</a>
+                <a href="#" class="text-gray-800 hover:text-gray-600">Women</a>
+                <a href="#" class="text-gray-800 hover:text-gray-600">Kids</a>
+                <a href="#" class="text-gray-800 hover:text-gray-600">Sale</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <a href="#" class="text-gray-800 hover:text-gray-600">
+                    <i class="fas fa-search"></i>
+                </a>
+                <a href="#" class="text-gray-800 hover:text-gray-600">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="#" class="text-gray-800 hover:text-gray-600 relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Animation -->
+    <section class="hero">
+        <div class="hero-slide hero-slide-1 active">
+            <div class="hero-content px-4">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">NEW ARRIVALS</h1>
+                <p class="text-xl mb-8 max-w-2xl">Discover our latest collection of premium footwear and apparel</p>
+                <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-8 rounded-full transition duration-300">
+                    SHOP NOW
+                </button>
+            </div>
+        </div>
+        
+        <div class="hero-slide hero-slide-2">
+            <div class="hero-content px-4">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">SUMMER SALE</h1>
+                <p class="text-xl mb-8 max-w-2xl">Up to 50% off on selected items</p>
+                <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-8 rounded-full transition duration-300">
+                    SHOP SALE
+                </button>
+            </div>
+        </div>
+        
+        <div class="hero-slide hero-slide-3">
+            <div class="hero-content px-4">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">PREMIUM COLLECTION</h1>
+                <p class="text-xl mb-8 max-w-2xl">Elevate your style with our luxury pieces</p>
+                <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-8 rounded-full transition duration-300">
+                    EXPLORE
+                </button>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+            <button class="hero-dot w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 focus:outline-none active" data-slide="0"></button>
+            <button class="hero-dot w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 focus:outline-none" data-slide="1"></button>
+            <button class="hero-dot w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 focus:outline-none" data-slide="2"></button>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">Shop by Category</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Men's Shoes -->
+                <div class="category-card group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0b9b63dd-acbd-4827-9c74-cff90cf46163.png" alt="Trendy men's sneakers collection displayed on light gray background with soft shadows showcasing sporty and casual styles" class="w-full h-full object-cover transition duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <h3 class="text-white text-2xl font-bold">Men's Shoes</h3>
+                    </div>
+                </div>
+                
+                <!-- Women's Shoes -->
+                <div class="category-card group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/95374d89-cad1-44f7-aa04-90701d3e9fcc.png" alt="Stylish women's footwear collection with heels, boots and sandals arranged artistically on wooden floor" class="w-full h-full object-cover transition duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <h3 class="text-white text-2xl font-bold">Women's Shoes</h3>
+                    </div>
+                </div>
+                
+                <!-- Clothing -->
+                <div class="category-card group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c3befe78-5eb0-4b5b-9bdb-f676e93d421c.png" alt="Minimalist clothing collection hanging on industrial-style rack showing casual and formal wear with neutral color palette" class="w-full h-full object-cover transition duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <h3 class="text-white text-2xl font-bold">Clothing</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="py-16 px-4 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">Featured Products</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="products-container">
+                <!-- Product 1 -->
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative overflow-hidden h-64">
+                        <span class="discount-badge">-20%</span>
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f5263bec-ca39-43b1-ab99-2589aa64bc31.png" alt="Modern white sneakers with black sole details and gum rubber sole, floating in mid-air with clean background" class="w-full h-full object-cover product-image">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-lg">Urban Runner</h3>
+                            <div class="text-gray-600">
+                                <span class="line-through mr-2">$120</span>
+                                <span class="font-bold text-black">$96</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Men's Sneakers</p>
+                        <div class="flex mt-3 space-x-0.5">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-gray-300"></i>
+                        </div>
+                        <button class="mt-4 bg-black text-white w-full py-2 rounded hover:bg-gray-800 transition duration-300">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/27561eeb-f34b-4111-8fc5-8f9091510594.png" alt="Elegant black leather ankle boots with silver buckle details shown from side view floating slightly above surface" class="w-full h-full object-cover product-image">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-lg">Luxury Boots</h3>
+                            <span class="font-bold text-black">$149</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Women's Boots</p>
+                        <div class="flex mt-3 space-x-0.5">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                        <button class="mt-4 bg-black text-white w-full py-2 rounded hover:bg-gray-800 transition duration-300">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8ee59581-5be9-47ce-a172-b78edb9f69a6.png" alt="Casual slim-fit white t-shirt with small embroidered logo detail laid flat on marble surface" class="w-full h-full object-cover product-image">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-lg">Premium Tee</h3>
+                            <span class="font-bold text-black">$39</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Unisex T-Shirt</p>
+                        <div class="flex mt-3 space-x-0.5">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star-half-alt text-yellow-400"></i>
+                        </div>
+                        <button class="mt-4 bg-black text-white w-full py-2 rounded hover:bg-gray-800 transition duration-300">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative overflow-hidden h-64">
+                        <span class="discount-badge">-30%</span>
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c7ccdc50-828d-4e62-8e39-18dac35473e1.png" alt="Performance running shoes with bright blue and white colorway floating mid-air at slight angle" class="w-full h-full object-cover product-image">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-lg">Speed Runner</h3>
+                            <div class="text-gray-600">
+                                <span class="line-through mr-2">$110</span>
+                                <span class="font-bold text-black">$77</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 text-sm mt-1">Running Shoes</p>
+                        <div class="flex mt-3 space-x-0.5">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-gray-300"></i>
+                        </div>
+                        <button class="mt-4 bg-black text-white w-full py-2 rounded hover:bg-gray-800 transition duration-300">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 px-4 bg-gray-900 text-white">
+        <div class="container mx-auto text-center max-w-4xl">
+            <h2 class="text-3xl font-bold mb-4">Join Our Community</h2>
+            <p class="mb-8 text-gray-300">Subscribe to get 10% off your first order and updates on new arrivals</p>
+            
+            <div class="flex flex-col sm:flex-row gap-2 max-w-xl mx-auto">
+                <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded text-gray-900 focus:outline-none">
+                <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-6 rounded transition duration-300">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 px-4">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Urban Threads</h3>
+                    <p class="text-gray-400">Elevating your style with premium footwear and apparel since 2015.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Shop</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">About</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Shipping</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Returns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Size Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Contact Us</h4>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">123 Fashion Street, NY</li>
+                        <li class="text-gray-400">hello@urbanthreads.com</li>
+                        <li class="text-gray-400">+1 (555) 123-4567</li>
+                    </ul>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 Urban Threads. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/57bbd67c-bdc1-4b38-bfe0-c4576a0d1333.png" alt="Visa credit card payment logo in blue white colors" class="h-8">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/00ae9f9f-d51c-49ac-83c7-ab237e86b4a7.png" alt="Mastercard payment logo with red and orange circles" class="h-8">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/008cd51d-1910-4859-9249-eb205d0b6944.png" alt="PayPal digital payment logo in white and blue colors" class="h-8">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1f5afc09-8587-4c15-bc3c-4e5a03406584.png" alt="American Express payment logo with blue white details" class="h-8">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Shopping Cart Functionality
+        let cart = [];
+        let cartCount = 0;
+
+        function addToCart(productName, price) {
+            cart.push({name: productName, price: price});
+            cartCount++;
+            document.querySelector('.cart-count').textContent = cartCount;
+            
+            // Show added to cart notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg animate-fadeInOut';
+            notification.textContent = `${productName} added to cart!`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 2000);
+        }
+
+        // Initialize product buttons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('h3').textContent;
+                const priceText = productCard.querySelector('span.font-bold').textContent;
+                const price = parseFloat(priceText.replace('
+        // Hero Slider
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.hero-dot');
+            let currentSlide = 0;
+            
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+            
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    showSlide(parseInt(this.dataset.slide));
+                });
+            });
+            
+            // Auto slide change
+            setInterval(() => {
+                showSlide(currentSlide + 1);
+            }, 5000);
+            
+            // Product hover effects
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+```, ''));
+                addToCart(productName, price);
+            });
+        });
+        // Hero Slider
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.hero-dot');
+            let currentSlide = 0;
+            
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+            
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    showSlide(parseInt(this.dataset.slide));
+                });
+            });
+            
+            // Auto slide change
+            setInterval(() => {
+                showSlide(currentSlide + 1);
+            }, 5000);
+            
+            // Product hover effects
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+```
